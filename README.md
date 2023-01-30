@@ -21,15 +21,45 @@ The package is published to npm:
 
 ## Usages
 
-This middleware will intercept any `PATCH` requests to `/items/:collection/:item` and replace any `increment(<number>)` or `increment(<float>)` value with an incremented value in the body before handing it over to the regular directus item handler.
+This endpoint will intercept any `POST` requests to `/upsert/:collection` and check if the record exists and if so, update it, otherwise it will create it.
+
 
 ```
-PATCH /items/test
-{ "test_increment": "increment(2)" }
+URL
+  http://localhost:8055/upsert/:collection
+Method
+  POST
+Headers
+  Authorization: ...
+  Content-Type: application/json
+Body
+{
+    "key": {
+        "key": "test2"
+    },
+    "body": {
+      "key": "test2",
+      "value": "testindddddg"
+    }
+}
 ```
 **response**
 ```
-{ "data": { "test_increment": 42 } }
+{
+    "success": true,
+    "msg": "Create Success",
+    "code": 201,
+    "data": null
+}
 ```
 
-> WARNING: This function is **dumb**! It only works on the first level of the body and does not check the field type (so if used on a string will end something like `"cool string11111"` if incremented 5 times)
+or
+
+```
+{
+    "success": true,
+    "msg": "Update Success",
+    "code": 201,
+    "data": null
+}
+```

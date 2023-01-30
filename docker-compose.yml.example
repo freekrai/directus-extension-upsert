@@ -5,15 +5,15 @@ services:
     ports:
       - 8055:8055
     volumes:
-      - "./data.db:/directus/data.db"
-      - "./dist:/directus/extensions/hooks/directus-extension-upsert"
+      - "./data:/directus/data"
+      - "./dist:/directus/extensions/endpoints/directus-extension-upsert"
     environment:
       KEY: '[UUID]'
       SECRET: '[UUID]'
       LOG_LEVEL: 'debug'
 
       DB_CLIENT: 'sqlite3'
-      DB_FILENAME: './data.db'
+      DB_FILENAME: '/directus/data/data.db'
 
       EXTENSIONS_AUTO_RELOAD: 'true'
 
