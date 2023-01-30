@@ -20,17 +20,16 @@ export default {
 				}
 
 				let reqBody = req.body || {}
-				console.log(reqBody);
-				const { key = {}, body = {} } = reqBody
+				const { filter = {}, body = {} } = reqBody
 
-				if (!key || !Object.keys(key).length) return res.json({...resData, success: false, msg: 'Missing key'})
+				if (!filter || !Object.keys(filter).length) return res.json({...resData, success: false, msg: 'Missing filter'})
 
 				const service = new ItemsService(collection, { schema: req.schema, accountability: req.accountability })
 				const primaryKeyField = service.schema.collections[collection].primary
-				const _where = { ...key }
-				console.log(_where);
+				const _where = { ...filter }
+
 				const exists = await service.knex.select(primaryKeyField).from(collection).where(_where).first()
-				console.log(exists);
+
 				if (exists) {
 					await service.updateOne(exists[primaryKeyField], body);
 					res.json({...resData, msg: 'Update Success'})

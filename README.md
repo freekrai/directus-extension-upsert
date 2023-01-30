@@ -34,7 +34,7 @@ Headers
   Content-Type: application/json
 Body
 {
-    "key": {
+    "filter": {
         "key": "test2"
     },
     "body": {
