@@ -1,23 +1,3 @@
-/*
-URL
-  http://localhost:8055/upsert/:collection
-Method
-  POST
-Headers
-  Authorization: ...
-  Content-Type: application/json
-Body
-{
-    "key": {
-        "key": "test2"
-    },
-    "body": {
-      "key": "test2",
-      "value": "testindddddg"
-    }
-}
-*/
-
 const resData = {
   success: true,
   msg: 'Success',
@@ -30,9 +10,7 @@ export default {
 	handler: async (router, { services, database, getSchema, exceptions }) => {
 		const { ItemsService } = services;
 		const { ServiceUnavailableException, RouteNotFoundException } = exceptions;
-		router.get('/', (req, res) => res.send('Hello, World!'));
-		router.get('/intro', (req, res) => res.send('Nice to meet you.'));
-		router.get('/:collection', (req, res) => res.send(`Nice to meet you. ${req.params.collection}`));
+
 		router.post('/:collection', async (req, res, next) => {
 			try {
 				const { collection } = req.params;
@@ -45,7 +23,6 @@ export default {
 				console.log(reqBody);
 				const { key = {}, body = {} } = reqBody
 
-				//if (!collection) return res.json({...resData, success: false, msg: 'Missing collection name'})
 				if (!key || !Object.keys(key).length) return res.json({...resData, success: false, msg: 'Missing key'})
 
 				const service = new ItemsService(collection, { schema: req.schema, accountability: req.accountability })
