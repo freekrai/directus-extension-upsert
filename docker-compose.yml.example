@@ -1,0 +1,24 @@
+version: '3'
+services:
+  directus:
+    image: directus/directus:latest
+    ports:
+      - 8055:8055
+    volumes:
+      - "./data.db:/directus/data.db"
+      - "./dist:/directus/extensions/hooks/directus-extension-upsert"
+    environment:
+      KEY: '[UUID]'
+      SECRET: '[UUID]'
+      LOG_LEVEL: 'debug'
+
+      DB_CLIENT: 'sqlite3'
+      DB_FILENAME: './data.db'
+
+      EXTENSIONS_AUTO_RELOAD: 'true'
+
+      ADMIN_EMAIL: 'admin@example.com'
+      ADMIN_PASSWORD: 'd1r3ctu5'
+
+      CORS_ENABLED: 'true'
+      CORS_ORIGIN: '*'
