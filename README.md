@@ -2,7 +2,7 @@
 
 As the name suggests a basic extension for upserting records in a single API call, it will check if the record exists and if so, update it, otherwise it will create it.
 
-> Tested with Directus 9.22.4
+> Tested with Directus 10
 
 ## Installation
 

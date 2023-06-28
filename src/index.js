@@ -7,16 +7,15 @@ const resData = {
 
 export default {
 	id: 'upsert',
-	handler: async (router, { services, database, getSchema, exceptions }) => {
+	handler: async (router, { services, database, getSchema }) => {
 		const { ItemsService } = services;
-		const { ServiceUnavailableException, RouteNotFoundException } = exceptions;
 
 		router.post('/:collection', async (req, res, next) => {
 			try {
 				const { collection } = req.params;
 
 				if (!collection) {
-					return next(new RouteNotFoundException());
+					throw "Missing collection";
 				}
 
 				let reqBody = req.body || {}
@@ -38,7 +37,7 @@ export default {
 					res.json({...resData, msg: 'Create Success', code: 201})
 				}
 			} catch (error) {
-				return next(new ServiceUnavailableException(error.message));
+				throw error;
 			}
 		
 		});
