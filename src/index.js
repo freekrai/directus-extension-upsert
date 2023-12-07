@@ -37,8 +37,8 @@ export default {
                     res.json({...resData, msg: 'Update Success'})
                 } else {
                     await service.createOne(body)
-                    res.json({...resData, msg: 'Create Success', code: 201})
                     res.status(201)
+                    res.json({...resData, msg: 'Create Success', code: 201})
                 }
             } catch (error) {
                 res.status(error.status)
