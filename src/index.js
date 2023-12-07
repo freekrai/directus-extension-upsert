@@ -41,8 +41,8 @@ export default {
                     res.json({...resData, msg: 'Create Success', code: 201})
                 }
             } catch (error) {
-                res.status(error.status)
-                return res.json({...resData, success: false, msg: error.code, code: error.status});
+                res.status(error.status || 400)
+                return res.json({...resData, success: false, msg: error.code, code: error.status || 400});
             }
 
         });
